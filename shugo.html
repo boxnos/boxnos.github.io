@@ -10,7 +10,7 @@ fetch(url, {
     //document.write(JSON.stringify(out[0]) + "<br>");
     document.write("<table>");
     for (var o of out)
-      if (!o["isSolved"]) {
+      if (!o["isSolved"] && o["available"]) {
         document.write("<tr>");
         document.write("<td>" + o["id"] + "</td>");
         document.write("<td><a href='https://onlinejudge.u-aizu.ac.jp/problems/" + o["id"] + "'>" + o["name"] + "</a></td>");
