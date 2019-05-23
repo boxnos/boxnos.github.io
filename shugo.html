@@ -1,22 +1,32 @@
-<script>
-  let url = 'https://judgeapi.u-aizu.ac.jp/problems/?page=0&size=3000';
-fetch(url, {
-  mode: 'cors',
-  credentials: 'include'
-}).then(res => res.json())
-  .then((out) => {
-    out.sort((a, b) => {return a["solvedUser"] < b["solvedUser"] ? 1 : -1;})
-    //document.write(JSON.stringify(out[0]) + "<br>");
-    document.write("<table>");
-    for (var o of out)
-      if (!o["isSolved"] && o["available"]) {
-        document.write("<tr>");
-        document.write("<td>" + o["id"] + "</td>");
-        document.write("<td><a href='https://onlinejudge.u-aizu.ac.jp/problems/" + o["id"] + "'>" + o["name"] + "</a></td>");
-        document.write("<td>" + o["solvedUser"] + "</td>");
-        document.write("</tr>");
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>AOJ 修行</title>
+  </head>
+  <body>
+    <table id="tbl"></table>
+    <script>
+      window.onload = function() {
+        let url = 'https://judgeapi.u-aizu.ac.jp/problems/?page=0&size=3000';
+        fetch(url, {
+          mode: 'cors',
+          credentials: 'include'
+        }).then(res => res.json())
+          .then((out) => {
+            out.sort((a, b) => {return a["solvedUser"] < b["solvedUser"] ? 1 : -1;})
+            let d = document.getElementById("tbl");
+            for (var o of out)
+              if (!o["isSolved"] && o["available"]) {
+                d.insertAdjacentHTML('beforeend',
+                                     "<tr>"
+                                     + "<td>" + o["id"] + "</td>"
+                                     + "<td><a href='https://onlinejudge.u-aizu.ac.jp/problems/" + o["id"] + "'>" + o["name"] + "</a></td>"
+                                     + "<td>" + o["solvedUser"] + "</td>"
+                                     + "</tr>");
+              }
+          })
+          .catch(err => { throw err });
       }
-    document.write("</table>");
-  })
-  .catch(err => { throw err });
-</script>
+    </script>
+  </body>
+</html>
