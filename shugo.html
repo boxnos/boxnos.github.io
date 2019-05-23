@@ -1,10 +1,9 @@
 <script>
-  let url = 'https://judgeapi.u-aizu.ac.jp/problems/users/boxnos?page=0&size=3000';
+  let url = 'https://judgeapi.u-aizu.ac.jp/problems/?page=0&size=3000';
 fetch(url, {
   mode: 'cors',
   credentials: 'include'
-})
-  .then(res => res.json())
+}).then(res => res.json())
   .then((out) => {
     out.sort((a, b) => {return a["solvedUser"] < b["solvedUser"] ? 1 : -1;})
     //document.write(JSON.stringify(out[0]) + "<br>");
@@ -19,5 +18,5 @@ fetch(url, {
       }
     document.write("</table>");
   })
-.catch(err => { throw err });
+  .catch(err => { throw err });
 </script>
